@@ -1,0 +1,149 @@
+
+** Conflict (shift/reduce) in state 53.
+** Token involved: ANDAND
+** This state is reached from toplevel after reading:
+
+LET ID EQ Expr IN Expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+Expr SEMISEMI 
+(?)
+
+** In state 53, looking ahead at ANDAND, shifting is permitted
+** because of the following sub-derivation:
+
+LetExpr 
+LET ID EQ Expr IN Expr 
+                  AndExpr 
+                  Expr . ANDAND Expr 
+
+** In state 53, looking ahead at ANDAND, reducing production
+** LetExpr -> LET ID EQ Expr IN Expr 
+** is permitted because of the following sub-derivation:
+
+AndExpr 
+Expr ANDAND Expr // lookahead token appears
+LetExpr // lookahead token is inherited
+LET ID EQ Expr IN Expr . 
+
+** Conflict (shift/reduce) in state 48.
+** Token involved: ANDAND
+** This state is reached from toplevel after reading:
+
+LET REC ID ID EQ Expr IN Expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+Expr SEMISEMI 
+(?)
+
+** In state 48, looking ahead at ANDAND, shifting is permitted
+** because of the following sub-derivation:
+
+LetRecExpr 
+LET REC ID ID EQ Expr IN Expr 
+                         AndExpr 
+                         Expr . ANDAND Expr 
+
+** In state 48, looking ahead at ANDAND, reducing production
+** LetRecExpr -> LET REC ID ID EQ Expr IN Expr 
+** is permitted because of the following sub-derivation:
+
+AndExpr 
+Expr ANDAND Expr // lookahead token appears
+LetRecExpr // lookahead token is inherited
+LET REC ID ID EQ Expr IN Expr . 
+
+** Conflict (shift/reduce) in state 45.
+** Token involved: ANDAND
+** This state is reached from toplevel after reading:
+
+IF Expr THEN Expr ELSE Expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+Expr SEMISEMI 
+(?)
+
+** In state 45, looking ahead at ANDAND, shifting is permitted
+** because of the following sub-derivation:
+
+IfExpr 
+IF Expr THEN Expr ELSE Expr 
+                       AndExpr 
+                       Expr . ANDAND Expr 
+
+** In state 45, looking ahead at ANDAND, reducing production
+** IfExpr -> IF Expr THEN Expr ELSE Expr 
+** is permitted because of the following sub-derivation:
+
+AndExpr 
+Expr ANDAND Expr // lookahead token appears
+IfExpr // lookahead token is inherited
+IF Expr THEN Expr ELSE Expr . 
+
+** Conflict (shift/reduce) in state 38.
+** Token involved: ANDAND
+** This state is reached from toplevel after reading:
+
+Expr ANDAND Expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+Expr SEMISEMI 
+AndExpr 
+(?)
+
+** In state 38, looking ahead at ANDAND, shifting is permitted
+** because of the following sub-derivation:
+
+Expr ANDAND Expr 
+            AndExpr 
+            Expr . ANDAND Expr 
+
+** In state 38, looking ahead at ANDAND, reducing production
+** AndExpr -> Expr ANDAND Expr 
+** is permitted because of the following sub-derivation:
+
+Expr ANDAND Expr // lookahead token appears
+AndExpr // lookahead token is inherited
+Expr ANDAND Expr . 
+
+** Conflict (shift/reduce) in state 36.
+** Token involved: ANDAND
+** This state is reached from toplevel after reading:
+
+FUN ID RARROW Expr 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+Expr SEMISEMI 
+(?)
+
+** In state 36, looking ahead at ANDAND, shifting is permitted
+** because of the following sub-derivation:
+
+FunExpr 
+FUN ID RARROW Expr 
+              AndExpr 
+              Expr . ANDAND Expr 
+
+** In state 36, looking ahead at ANDAND, reducing production
+** FunExpr -> FUN ID RARROW Expr 
+** is permitted because of the following sub-derivation:
+
+AndExpr 
+Expr ANDAND Expr // lookahead token appears
+FunExpr // lookahead token is inherited
+FUN ID RARROW Expr . 
