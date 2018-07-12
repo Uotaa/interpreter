@@ -19,9 +19,9 @@ open Syntax
 
 toplevel :
     e=Expr SEMISEMI { Exp e }
-  | LET x=ID EQ e=Expr SEMISEMI { Decl (x, e) }
-  | LET REC x=ID y=ID EQ e=Expr SEMISEMI { RecDecl (x, y, e) }
-
+  | e=MultiLetExpr SEMISEMI { e }
+  | LET REC x=ID EQ FUN y=ID RARROW e=Expr SEMISEMI { RecDecl (x, y, e) }
+  
 Expr :
     e=IfExpr { e }
   | e=LetExpr { e }
@@ -33,11 +33,11 @@ LetExpr :
     LET x=ID EQ e1=Expr IN e2=Expr { LetExp (x, e1, e2) }
 
 OrExpr : 
-    e1=OrExpr OROR e2=AndExpr { BinOp (Or, e1, e2) }
+    e1=OrExpr OROR e2=AndExpr { BinLogOp (Or, e1, e2) }
   | e=AndExpr { e }
 
 AndExpr : 
-    e1=AndExpr ANDAND e2=EqExpr { BinOp (And, e1, e2) }
+    e1=AndExpr ANDAND e2=EqExpr { BinLogOp (And, e1, e2) }
   | e=EqExpr { e }
 
 EqExpr : 
@@ -74,4 +74,8 @@ FunExpr :
     FUN x=ID RARROW e=Expr { FunExp (x, e) }
 
 LetRecExpr :
-    LET REC x=ID y=ID EQ e1=Expr IN e2=Expr { LetRecExp (x, y, e1, e2) }
+    LET REC x=ID EQ FUN y=ID RARROW e1=Expr IN e2=Expr { LetRecExp (x, y, e1, e2) }
+
+MultiLetExpr :
+    LET x=ID EQ e1=Expr e2=MultiLetExpr { MultiDecl (x, e1, e2) }
+  | LET x=ID EQ e=Expr { Decl (x, e) }
